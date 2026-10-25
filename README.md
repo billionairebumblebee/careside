@@ -8,8 +8,12 @@ Open **https://careside.vercel.app**. This is a separate Vercel project connecte
 
 - Production synthetic-case creation returned HTTP200. Browser checks exercised patient review, authorized caregiver sharing, staff queue/update fanout and revocation.
 - A completed dedicated CREAO hospital-agent run (`3fa7084f-d0c8-4187-a0b7-047751ade218`) returned five answers spanning all four evidence labels. The agent configuration shows **Claude Sonnet 5.5**, used for API runs. This is configuration evidence, not per-response model telemetry or direct Anthropic API proof.
-- The QA owner reports 18 passing tests. Independent source checks cover exact quotation provenance and bounded order/administration/discharge contradictions; they do not establish general semantic entailment or clinical validation.
+- A fresh October 25 local run of `npm test` passes 19/19 tests. Independent source checks cover exact quotation provenance and bounded order/administration/discharge contradictions; they do not establish general semantic entailment or clinical validation.
 - Working prototype evidence and open limits are consolidated in `.doc-qa/QA-REPORT.md`; deployment evidence is `.doc-qa/deployment-proof.json`.
+
+## What ran and what did not
+
+The deployed prototype, one actual configured-Claude run, deterministic source checks, and browser consent/revocation tests have evidence. Recurring overnight Judge/Inventor execution has not been verified by this README; prepared agents or a planned loop are not proof that jobs ran. Sponsor qualification and a completed submission are separate from implementation. Credit redemption is still unverified.
 
 ## Evidence boundaries
 
