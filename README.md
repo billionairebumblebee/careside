@@ -2,6 +2,12 @@
 
 A synthetic hospital-companion prototype: talk or type to Richard, correct his readback, confirm your recollection, ask a source-grounded question, and share a reviewed update with an authorized caregiver.
 
+## How we use Convex
+Durable cases and answer jobs live in a separate Convex deployment.
+Indexed custom capabilities filter patient, staff and caregiver reads.
+Realtime subscriptions deliver staff answers and revoke caregiver access without refresh.
+See [the code-backed hackathon log](hackathon.md) for features, proof files and dated commits.
+
 ## Why Vivian built CareSide
 
 Vivian Yang arrived at Cal Hacks building Money Meow. An unexpected ER visit after food or drink—with mouth numbness and possible swelling—made waiting, follow-up questions and family communication concrete problems. A doctor considered a mild allergic reaction or a physical stress response; the cause remained uncertain. Her roommate accompanied her, and her mother struggled to get updates about what was happening and when she could leave. That experience prompted the CareSide pivot; it is not a diagnosis or evidence of hospital negligence.
