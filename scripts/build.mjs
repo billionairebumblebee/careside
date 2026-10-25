@@ -1,0 +1,1 @@
+import{mkdirSync,readFileSync,writeFileSync}from'node:fs';mkdirSync('public/vendor',{recursive:true});writeFileSync('public/vendor/convex.js',readFileSync('node_modules/convex/dist/browser.bundle.js','utf8')+'\nexport const {ConvexClient}=convex;\n');console.log('CareSide public assets ready.');
