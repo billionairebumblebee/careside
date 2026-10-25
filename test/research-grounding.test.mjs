@@ -13,3 +13,5 @@ test('source-backed status retains inspectable quotation and unknown remains unk
 test('raw summary cannot bypass validated answers',()=>{const r=validateAnalysis({summary:'You can leave at noon. Medicine A was given.',answers:[],ordersExecuted:false},c);assert.ok(!/noon|was given/.test(r.summary));});
 test('noun administration assertion cannot use order-only real quote',()=>assert.throws(()=>validateAnalysis(answer('Administration occurred at08:20.','Confirmed','M1',c.sources.find(x=>x.id==='M1').text),c),/administration/));
 test('valid negative administration status remains usable',()=>{const r=validateAnalysis(answer('The medicine is ordered, not administered.','Confirmed','M1',c.sources.find(x=>x.id==='M1').text),c);assert.match(r.answers[0].text,/not administered/);});
+
+test('unrelated prior negation cannot authorize a later positive administration assertion',()=>assert.throws(()=>validateAnalysis(answer('No result is available. Example medicine A was administered at 08:20.','Confirmed','M1',c.sources.find(x=>x.id==='M1').text),c),/administration/));

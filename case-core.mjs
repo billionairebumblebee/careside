@@ -28,7 +28,7 @@ export function mutateCase(original,role,action,payload,{id,time}={}){
 export function validateAnalysis(value,c){
  if(!value||!Array.isArray(value.answers)||value.ordersExecuted!==false)throw Error('Claude returned no valid structured answer.');
  const labels=new Set(['Confirmed','PatientReported','GeneralEducation','Unknown']),sources=new Map(c.sources.map(s=>[s.id,s]));
- const positive=(text,re)=>{const m=re.exec(text);if(!m)return false;return !/\b(?:no|not|nothing|unknown|cannot|doesn't|isn't)\b/i.test(text.slice(Math.max(0,m.index-65),m.index));};
+ const positive=(text,re)=>{const m=re.exec(text);if(!m)return false;return !/\b(?:no|not|nothing|unknown|cannot|doesn't|isn't)\b/i.test(text.slice(0,m.index).split(/[.!?;]/).at(-1));};
  for(const a of value.answers){
   if(!labels.has(a.label)||!Array.isArray(a.sourceIds)||a.sourceIds.some(id=>!sources.has(id)))throw Error('Answer contains an invalid source or evidence label.');
   const kinds={Confirmed:['chart','staff'],PatientReported:['patient'],GeneralEducation:['reference']};
