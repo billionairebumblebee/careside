@@ -9,3 +9,5 @@ Public profile: https://asi1.ai/ai/agent1q0lj46rp8jfh4h40qn679j9wh7kmezxwcyxz3n0
 Example: “Show sample blood collection status.” Actual response identifies specimen collection at08:30, a pending result, simulated source and timestamp, and explicitly says no real chart was read. Screenshot proof is in .doc-qa/fetch-asi-actual-reply.png. No inference or patient data is sent to a model by this bounded public worker.
 
 Run with the existing Python environment: python fetch-agent/agent.py (local port8103). Seed and approved mailbox credential stay in ignored server .env. No real patient information should be entered.
+
+Official CalHacks ASI:One Submission Agent registration confirmed October25 at10:36AM Pacific: TeamID calhacks-296f3b2c, StatusSubmitted, roster1/1. Proof .doc-qa/fetch-submission-confirmed.png. Devpost and this sponsor registration are separate.
