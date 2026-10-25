@@ -62,7 +62,7 @@ The app-connected public-reference path was exercised in actual CREAO run `0368f
 
 The newer **Apify** path is also live verified: Actor `eqKd7wQBaVFJQghPO` retrieved the allowlisted MedlinePlus page; actual CREAO run `e2592690-6854-4a1c-a5b5-2a3afad453b0` consumed that cached source and returned validated GeneralEducation/Unknown answers. Source receipt, retrieval time and Actor link persist with the answer. No patient text is sent to the Actor. See [Apify evidence](sponsors/apify.md).
 
-Convex provides separate durable case state and role-filtered reactive updates. Elastic keyword retrieval is live verified with server-owned case namespaces and exact revision filters. Fetch/ASI and Visa evidence from Money Meow is not CareSide integration proof. Azure is not used; its absence alone is not a Microsoft-track disqualification under the available mentor clarification. No measured clinical benefit is claimed.
+Convex provides separate durable case state and role-filtered reactive updates. Elastic keyword retrieval is live verified with server-owned case namespaces and exact revision filters. CareSide has its own registered Fetch ACP agent and verified ASI:One synthetic-case reply; its local worker must remain running. Official Fetch SubmissionAgent receipt: `calhacks-296f3b2c`, Submitted, roster 1/1. This is submission evidence, not an eligibility or award guarantee. Money Meow evidence is not transferred to CareSide. Azure is not used. No measured clinical benefit is claimed.
 
 ## Working demonstration
 
@@ -265,9 +265,9 @@ Proof: none for CareSide; not claimed. <br>
 Details: [Factory](sponsors/factory-ai.md)
 
 ### Fetch.ai
-Status: Planned / unused in CareSide. <br>
-Function: No CareSide ACP or ASI:One hospital service is deployed. <br>
-Proof: actual code/run evidence linked below. <br>
+Status: Implemented and live reply verified; local worker hosting. <br>
+Function: Public ACP synthetic-case questions through the registered CareSide ASI:One profile; no private chart access. <br>
+Proof: actual ASI reply and official SubmissionAgent receipt `calhacks-296f3b2c`, Submitted, roster 1/1. <br>
 Details: [Fetch.ai](sponsors/fetch-ai.md)
 
 ### Figma
