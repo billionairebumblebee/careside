@@ -12,7 +12,7 @@
 - Auth: Other (custom hashed bearer capabilities; synthetic demo roles, not clinical identity)
 - AI models: none (no provider model ID selected in code; CREAO saved-agent configuration is documented separately in README)
 - Started: 2026-10-25T05:36:42Z
-- Last updated: 2026-10-25T16:28:30Z
+- Last updated: 2026-10-25T17:29:22Z
 
 ## How we use Convex
 

@@ -8,3 +8,11 @@ const c=await call('/api/demo/start',{}),token=c.data.roleTokens.patient;
 const start=await call('/api/chat',{message:'What is famotidine generally?',referenceTopicId:'famotidine',requestId:'reference-fixture-1'},token);assert.equal(start.status,200);assert.match(prompt,/Famotidine public source fixture/);assert.equal(start.data.evidence.reference.provider,'bright-data');assert.equal(publicBody.url,'https://my.clevelandclinic.org/health/drugs/18896-famotidine-tablets');assert.equal(JSON.stringify(publicBody).includes('Morgan'),false);
 const result=await call('/api/chat/same-reference-run',null,token);assert.equal(result.data.status,'completed');assert.equal(result.data.evidence.reference.provider,'bright-data');assert.equal(result.data.answer.answers[0].label,'GeneralEducation');assert.equal(result.data.snapshot.medications[0].name,'Example medicine A (fictional)');
 });
+
+test('stored general references accept only the two exact approved medication pages',async()=>{
+ const store=createCaseStore({}),c=await store.create(),token=c.roleTokens.patient;
+ const add=url=>store.update(token,'reference-add',{source:{id:'REF-famotidine-test',kind:'reference',url,title:'General public reference',time:'2026-10-25T00:00:00Z',text:'Synthetic reference fixture'}});
+ await assert.rejects(()=>add('https://my.clevelandclinic.org.evil.example/health/drugs/18896-famotidine-tablets'),/Invalid allowlisted/);
+ await assert.rejects(()=>add('https://medlineplus.gov/unapproved-page'),/Invalid allowlisted/);
+ const r=await add('https://my.clevelandclinic.org/health/drugs/18896-famotidine-tablets');assert.equal(r.snapshot.sources.at(-1).kind,'reference');assert.equal(r.snapshot.medications[0].name,'Example medicine A (fictional)');
+});

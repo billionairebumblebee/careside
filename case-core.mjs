@@ -20,7 +20,7 @@ export function mutateCase(original,role,action,payload,{id,time}={}){
  }else if(action==='family-share'){if(!c.family.authorized)fail('Authorize a named family audience before sharing.');if(payload.text!==c.family.draft)fail('Review the current source-backed family draft before sharing.',409);c.family.sharedText=payload.text;
  }else if(action==='job-status'){const j=c.jobs.find(j=>payload.runId?j.runId===payload.runId:j.requestId===payload.jobRequestId);if(j){j.status=payload.status;j.error=payload.error||null;if(payload.answer)j.answer=payload.answer;}
  }else if(action==='ai-result'){const r=payload.result;if(!r||!Array.isArray(r.answers))fail('Invalid source-grounded response.',400);c.messages.push({id,role:'assistant',time,text:r.summary||'',result:r});
- }else if(action==='reference-add'){const s=payload.source;if(!s||s.kind!=='reference'||!/^REF-[a-z0-9-]+$/i.test(s.id)||!s.url?.startsWith('https://medlineplus.gov/'))fail('Invalid allowlisted general reference.',400);if(c.sources.some(x=>x.id===s.id))return c;c.sources.push(s);
+ }else if(action==='reference-add'){const s=payload.source;if(!s||s.kind!=='reference'||!/^REF-[a-z0-9-]+$/i.test(s.id)||!['https://medlineplus.gov/druginfo/meds/a687011.html','https://my.clevelandclinic.org/health/drugs/18896-famotidine-tablets'].includes(s.url))fail('Invalid allowlisted general reference.',400);if(c.sources.some(x=>x.id===s.id))return c;c.sources.push(s);
  }else if(action==='job-reserve'){if(c.jobs.some(j=>['starting','pending','running','queued'].includes(j.status)))fail('An answer is already being prepared.',409);if(c.jobs.length>=20)fail('This synthetic case reached its demonstration budget.',429);c.jobs.push({requestId:payload.jobRequestId,status:'starting',createdAt:time});
  }else if(action==='job'){const j=c.jobs.find(j=>j.requestId===payload.job.requestId);if(j)Object.assign(j,payload.job);else c.jobs.push(payload.job);
  }else fail('Unknown case action.',400);
@@ -45,4 +45,13 @@ export function validateAnalysis(value,c){
   }
  }
  return{summary:value.answers.map(a=>String(a.text||'')).join(' ').slice(0,2500),answers:value.answers.map(a=>({text:String(a.text||'').slice(0,3000),label:a.label,sourceIds:a.sourceIds,quotes:a.quotes||[]})),timeline:[],unknowns:Array.isArray(value.unknowns)?value.unknowns:[],ordersExecuted:false};
+}
+
+export function validateAnalysisSections(value,c){
+ if(!value||!Array.isArray(value.answers)||value.ordersExecuted!==false)return validateAnalysis(value,c);
+ const answers=[];let withheld=0;
+ for(const answer of value.answers){try{answers.push(validateAnalysis({answers:[answer],ordersExecuted:false,unknowns:[]},c).answers[0]);}catch{withheld++;}}
+ if(!answers.length)throw Error('No answer sections passed source validation.');
+ if(withheld)answers.push({text:`${withheld} answer section${withheld===1?' was':'s were'} withheld because its sources or evidence label did not validate. That part remains unknown.`,label:'Unknown',sourceIds:[],quotes:[]});
+ return{...validateAnalysis({answers,ordersExecuted:false,unknowns:[]},c),partial:withheld>0,withheldSections:withheld};
 }

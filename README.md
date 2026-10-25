@@ -12,7 +12,7 @@ See [the code-backed hackathon log](hackathon.md) for features, proof files and 
 
 Vivian Yang arrived at Cal Hacks building Money Meow. An unexpected ER visit after food or drink—with mouth numbness and possible swelling—made waiting, follow-up questions and family communication concrete problems. A doctor considered a mild allergic reaction or a physical stress response; the cause remained uncertain. Her roommate accompanied her, and her mother struggled to get updates about what was happening and when she could leave. That experience prompted the CareSide pivot; it is not a diagnosis or evidence of hospital negligence.
 
-Vivian selected the problem, designed the talk-first patient/caregiver workflow, directed the agent team, tested and revised the UX, set source and consent boundaries, and presents the project. Coding agents substantially authored and integrated implementation code. CREAO supplied actual runtime answers and planning/review/marketing work; we do not claim its agents autonomously edited this repository. No personal medical photos or records are included in this public repository.
+Vivian selected the problem, designed the talk-first patient/caregiver workflow, directed the agent team, tested and revised the UX, set source and consent boundaries, and presents the project. Coding agents substantially authored and integrated implementation code. CREAO cloned the public repository, ran tests, and authored a tested retrieval-mapping patch in its Linux sandbox. Local coding agents reviewed, applied and pushed the patch; CREAO has not itself pushed a GitHub commit. No personal medical photos or records are included in this public repository.
 
 ## CREAO submission evidence
 
@@ -41,7 +41,7 @@ Open **https://careside.vercel.app**. This is a separate Vercel project connecte
 
 - Production synthetic-case creation returned HTTP200. Browser checks exercised patient review, authorized caregiver sharing, staff queue/update fanout and revocation.
 - A completed dedicated CREAO hospital-agent run (`3fa7084f-d0c8-4187-a0b7-047751ade218`) returned five answers spanning all four evidence labels. The agent configuration shows **Claude Sonnet 5.5**, used for API runs. This is configuration evidence, not per-response model telemetry or direct Anthropic API proof.
-- The current focused suite contains 28 passing tests. Independent source checks cover exact quotation provenance and bounded order/administration/discharge contradictions; they do not establish general semantic entailment or clinical validation.
+- The current focused suite contains 41 passing tests. Independent source checks cover exact quotation provenance and bounded order/administration/discharge contradictions; they do not establish general semantic entailment or clinical validation.
 - Working prototype evidence and open limits are consolidated in `.doc-qa/QA-REPORT.md`; deployment evidence is `.doc-qa/deployment-proof.json`.
 
 ## What ran and what did not
@@ -58,11 +58,11 @@ The deployed prototype, one actual configured-Claude run, deterministic source c
 
 `medication-reference.mjs` accepts only an allowlisted topic ID. It never sends patient narrative or chart records to public collection. The first supported topic is general [famotidine information from MedlinePlus](https://medlineplus.gov/druginfo/meds/a687011.html). This reference must not be mapped to the fictional “Example medicine A.”
 
-The app-connected public-reference path was exercised in actual CREAO run `0368f4fa-0ead-43fb-a762-216ac157f4ce`: direct MedlinePlus retrieval → distinct general-reference source → generated answer with validated quotations. The provider was **direct-public-reference**, not Bright Data. The Bright Data adapter is prepared, but live Bright Data retrieval and credit redemption remain unverified. Setting server-only `BRIGHT_DATA_API_TOKEN` and `BRIGHT_DATA_UNLOCKER_ZONE` selects the documented [Bright Data Web Unlocker request API](https://docs.brightdata.com/api-reference/rest-api/unlocker/unlock-website).
+The app-connected public-reference path was exercised in actual CREAO run `0368f4fa-0ead-43fb-a762-216ac157f4ce`: direct MedlinePlus retrieval → distinct general-reference source → generated answer with validated quotations. The provider was **direct-public-reference**, not Bright Data. Bright Data backup retrieval is now verified against an approved Cleveland Clinic reference; the advertised credit promotion remains unverified. Setting server-only `BRIGHT_DATA_API_TOKEN` and `BRIGHT_DATA_UNLOCKER_ZONE` selects the documented [Bright Data Web Unlocker request API](https://docs.brightdata.com/api-reference/rest-api/unlocker/unlock-website).
 
 The newer **Apify** path is also live verified: Actor `eqKd7wQBaVFJQghPO` retrieved the allowlisted MedlinePlus page; actual CREAO run `e2592690-6854-4a1c-a5b5-2a3afad453b0` consumed that cached source and returned validated GeneralEducation/Unknown answers. Source receipt, retrieval time and Actor link persist with the answer. No patient text is sent to the Actor. See [Apify evidence](sponsors/apify.md).
 
-Convex provides separate durable case state and role-filtered reactive updates. Elastic retrieval is implemented behind server configuration and isolation tests, but no live CareSide Elastic project/query is verified. Fetch/ASI and Visa evidence from Money Meow is not CareSide integration proof. Azure is not used; its absence alone is not a Microsoft-track disqualification under the available mentor clarification. No measured clinical benefit is claimed.
+Convex provides separate durable case state and role-filtered reactive updates. Elastic keyword retrieval is live verified with server-owned case namespaces and exact revision filters. Fetch/ASI and Visa evidence from Money Meow is not CareSide integration proof. Azure is not used; its absence alone is not a Microsoft-track disqualification under the available mentor clarification. No measured clinical benefit is claimed.
 
 ## Working demonstration
 
@@ -139,13 +139,13 @@ Proof: none for CareSide; not claimed. <br>
 Details: [Cartesia](sponsors/cartesia.md)
 
 ### Bright Data
-Status: Prepared / blocked; not live. <br>
+Status: Implemented and live verified. <br>
 Function: An allowlisted public-reference adapter can use Web Unlocker when configured. <br>
 Proof: actual code/run evidence linked below. <br>
 Details: [Bright Data](sponsors/bright-data.md)
 
 ### Elastic
-Status: Prepared / blocked; not live. <br>
+Status: Implemented and live verified. <br>
 Function: Server-isolated case-source retrieval is implemented behind configuration. <br>
 Proof: actual code/run evidence linked below. <br>
 Details: [Elastic](sponsors/elastic.md)
@@ -407,3 +407,7 @@ Status: Unused in CareSide. <br>
 Function: No sponsor-specific CareSide integration is implemented. <br>
 Proof: none for CareSide; not claimed. <br>
 Details: [CRS Credit API](sponsors/crs-credit-api.md)
+
+## Combined live source and retrieval receipt
+
+Actual run `94da3015-018c-4b21-9e53-9496b91e59c6` consumed the real cached Bright Cleveland Clinic reference plus four live Elastic case matches. The model mixed chart/reference labels in one section; that section was explicitly withheld as Unknown. Independently validated GeneralEducation and Unknown answers were retained. Recovery reused the same completed upstream run, with no new model generation. See the two sponsor evidence pages for provenance.

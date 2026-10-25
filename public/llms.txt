@@ -25,7 +25,7 @@ https://agent.creao.ai/share/38bfd75de0f779412c97c1726839b9cb
 Separate Convex deployment provides durable case state and role-filtered reactive updates.
 Allowlisted famotidine general reference uses direct MedlinePlus retrieval in verified run 0368f4fa-0ead-43fb-a762-216ac157f4ce. It is not mapped to fictional Example medicine A.
 The newer Apify path is live verified: official Website Content Crawler run eqKd7wQBaVFJQghPO retrieved the allowlisted public reference; CREAO run e2592690-6854-4a1c-a5b5-2a3afad453b0 consumed that cached packet. Only a fixed public URL goes to Apify, never patient text. Answer receipts retain actual provider, source ID, retrieval time and Actor link.
-Bright Data and Elastic adapters are prepared but live CareSide use is unverified. No direct Anthropic credit redemption, live EHR, Fetch medical service, or Visa hospital integration is claimed.
+Bright Data backup retrieval from the approved Cleveland Clinic famotidine page and case-isolated Elastic keyword retrieval are live verified in combined CREAO run 94da3015-018c-4b21-9e53-9496b91e59c6. One mixed-label section was explicitly withheld as Unknown; validated sections remain. No vector/semantic claim. No direct Anthropic credit redemption, live EHR, Fetch medical service, or Visa hospital integration is claimed.
 
 ## API boundaries
 POST /api/demo/start creates synthetic case and scoped operator tokens.

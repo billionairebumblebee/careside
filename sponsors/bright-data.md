@@ -1,7 +1,7 @@
 # Bright Data
 
 ## CareSide status
-Prepared / blocked; not live.
+Implemented and live verified: public-reference backup with an explicit approved alternative source.
 
 ## Established requirements and sources
 - Live public-web data essential to the core experience: removing it should remove the product’s core capability. Specific real user, live demo, resilient retrieval and clean useful output. Handle blocks, slow responses and empty results. $300 build credits . Hackpack . Source: sponsor announcement supplied by Vivian October 22. Rewards are credits and gift cards, not cash.
@@ -16,12 +16,10 @@ Source provenance: canonical `sponsor-intelligence.html` sponsor/track and compl
 An allowlisted public-reference adapter can use Web Unlocker when configured.
 
 ## Actual code and run evidence
-`medication-reference.mjs`, `api-handler.mjs`, `test/reference-pipeline.test.mjs`; actual live reference run `0368f4fa-0ead-43fb-a762-216ac157f4ce` used direct MedlinePlus, NOT Bright Data.
+`medication-reference.mjs`, `bright-reference.test.mjs`, `api-handler.mjs`, `case-core.mjs`. A real Bright request retrieved 6,342 characters from https://my.clevelandclinic.org/health/drugs/18896-famotidine-tablets at `2026-10-25T17:21:46.020Z`. Combined CREAO run `94da3015-018c-4b21-9e53-9496b91e59c6` consumed the cached source, ID `REF-famotidine-36d6bc55db8e`, alongside live Elastic retrieval. Earlier MedlinePlus direct retrieval remains direct, not Bright proof.
 
 ## Demonstration
-Use About famotidine: inspect evidence.reference.provider. Current evidence must say direct-public-reference, never Bright Data.
+Apify stays primary. When the configured backup actually retrieves the approved alternative, answer evidence says bright-data and retains Cleveland Clinic URL/time. Public GeneralEducation remains separate from the fictional medication order.
 
 ## Eligibility gaps and limits
-Account/access and live provider retrieval are unverified. Prepared code and mocked tests do not satisfy essential live Bright Data use. No patient narrative is sent to public collection.
-
-All clinical records are synthetic. No diagnosis, clinical validation, real EHR connection, automatic medical action or measured patient benefit is claimed. See the main README for the founder contribution and reused assets.
+Bright blocked MedlinePlus under its usage policy; no bypass was attempted. The approved Cleveland Clinic alternative succeeded. No patient text is sent to collection. Free account requests were shown; the advertised $300 promotion remains unverified. One mixed-label model section was explicitly withheld as Unknown. No clinical validation or award outcome is claimed.
