@@ -49,5 +49,5 @@ async def handle(ctx:Context,sender:str,msg:ChatMessage):
 @protocol.on_message(ChatAcknowledgement)
 async def ack(ctx:Context,sender:str,msg:ChatAcknowledgement):pass
 if __name__=='__main__':
- a=Agent(name='Richard CareSide Synthetic Companion',seed=os.environ['CARESIDE_FETCH_SEED'],port=8003,mailbox=True,publish_agent_details=True,description='Public synthetic hospital communication demo: source-labelled example collection and medication status, or create an isolated fictional staff question. No real patient charts, diagnosis or hospital contact. Never send personal health information.')
+ a=Agent(name='Richard CareSide',seed=os.environ['CARESIDE_FETCH_SEED'],port=8103,mailbox=True,publish_agent_details=True,description='Public synthetic hospital communication demo: source-labelled example collection and medication status, or create an isolated fictional staff question. No real patient charts, diagnosis or hospital contact. Never send personal health information.')
  a.include(protocol,publish_manifest=True);a.run()
