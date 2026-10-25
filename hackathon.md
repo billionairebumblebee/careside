@@ -12,7 +12,7 @@
 - Auth: Other (custom hashed bearer capabilities; synthetic demo roles, not clinical identity)
 - AI models: none (no provider model ID selected in code; CREAO saved-agent configuration is documented separately in README)
 - Started: 2026-10-25T05:36:42Z
-- Last updated: 2026-10-25T16:24:25Z
+- Last updated: 2026-10-25T16:28:30Z
 
 ## How we use Convex
 
@@ -38,3 +38,4 @@
 - 8980b20 — 2026-10-25: code-backed Convex feature log; hackathon.md, README.md.
 - a5c4d76 — 2026-10-25: complete sponsor evidence inventory; sponsors/*.md, README.md.
 - f5b4a0c — 2026-10-25: allowlisted Apify reference Actor; medication-reference.mjs, medication-reference.test.mjs.
+- 9fde934 — 2026-10-25: actual Apify receipts and isolated case retrieval; pi-handler.mjs, lastic-context.mjs.
