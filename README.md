@@ -37,7 +37,7 @@ COO saved-role handoffs resolve role playbooks into the current sandbox; they ar
 
 ## Live prototype and verified evidence
 
-Open **https://careside.vercel.app**. This is a separate Vercel project connected to the private `billionairebumblebee/careside` repository, production branch `codex/care-side`, and a separate Convex deployment. It does not modify the Money Meow deployment.
+Open **https://careside.vercel.app**. This is a separate Vercel project connected to the public `billionairebumblebee/careside` repository, production branch `codex/care-side`, and a separate Convex deployment. It does not modify the Money Meow deployment.
 
 - Production synthetic-case creation returned HTTP200. Browser checks exercised patient review, authorized caregiver sharing, staff queue/update fanout and revocation.
 - A completed dedicated CREAO hospital-agent run (`3fa7084f-d0c8-4187-a0b7-047751ade218`) returned five answers spanning all four evidence labels. The agent configuration shows **Claude Sonnet 5.5**, used for API runs. This is configuration evidence, not per-response model telemetry or direct Anthropic API proof.
@@ -89,3 +89,319 @@ Production is deployed and independently opened. Pushes to `codex/care-side` tri
 CareSide is a separate prototype developed during Cal Hacks 13. Richard branding/art is reused from Money Meow, which was developed during this event. The existing CREAO account and agent infrastructure are shared development resources; they are not evidence that a hospital integration existed earlier. Third-party dependencies are recorded in package.json/package-lock.json. This is not an “everything was newly authored” claim.
 
 The [official Cal Hacks FAQ](https://www.calhacks.io/) permits pre-event ideation and requires implementation during the hackathon (verified October 24, 2026). It does not provide an itemized exemption or general disclosure rule for every reused asset. Answer submission provenance questions accurately and preserve the distinction between reused resources and CareSide-specific implementation.
+
+## Complete sponsor inventory
+
+Each entry is exactly five lines. Unused or blocked sponsors are documentation, not integration or qualification claims. Mana and Mana.space are one canonical sponsor entry.
+
+### Annapurna Labs
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Annapurna Labs](sponsors/annapurna-labs.md)
+
+### Anthropic / Claude
+Status: Implemented through CREAO; direct API unused. <br>
+Function: Configured Claude provides structured source-bound synthetic hospital Q&A. <br>
+Proof: actual code/run evidence linked below. <br>
+Details: [Anthropic / Claude](sponsors/anthropic.md)
+
+### Hyphenate
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Hyphenate](sponsors/hyphenate.md)
+
+### Spacetime
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Spacetime](sponsors/spacetime.md)
+
+### ASUS
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [ASUS](sponsors/asus.md)
+
+### Red Bull
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Red Bull](sponsors/redbull.md)
+
+### Cartesia
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Cartesia](sponsors/cartesia.md)
+
+### Bright Data
+Status: Prepared / blocked; not live. <br>
+Function: An allowlisted public-reference adapter can use Web Unlocker when configured. <br>
+Proof: actual code/run evidence linked below. <br>
+Details: [Bright Data](sponsors/bright-data.md)
+
+### Elastic
+Status: Prepared / blocked; not live. <br>
+Function: Server-isolated case-source retrieval is implemented behind configuration. <br>
+Proof: actual code/run evidence linked below. <br>
+Details: [Elastic](sponsors/elastic.md)
+
+### Microsoft
+Status: Microsoft tooling unused; customer-use-case qualification unconfirmed. <br>
+Function: Working healthcare communication loop; no Azure requirement inferred. <br>
+Proof: actual case, consent and source-bound answer code linked below. <br>
+Details: [Microsoft](sponsors/microsoft.md)
+
+### Convex
+Status: Implemented: durable reactive backend. <br>
+Function: Owned patient, staff and caregiver state synchronizes and revokes access. <br>
+Proof: actual code/run evidence linked below. <br>
+Details: [Convex](sponsors/convex.md)
+
+### a16z
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [a16z](sponsors/a16z.md)
+
+### Adobe
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Adobe](sponsors/adobe.md)
+
+### Afterquery
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Afterquery](sponsors/afterquery.md)
+
+### Apify
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Apify](sponsors/apify.md)
+
+### Armadin
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Armadin](sponsors/armadin.md)
+
+### Atlassian
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Atlassian](sponsors/atlassian.md)
+
+### Bitdeer
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Bitdeer](sponsors/bitdeer.md)
+
+### Canva
+Status: Used for presentation authoring; not runtime. <br>
+Function: An editable CareSide concept presentation supports the founder presentation. <br>
+Proof: actual code/run evidence linked below. <br>
+Details: [Canva](sponsors/canva.md)
+
+### Capital One
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Capital One](sponsors/capital-one.md)
+
+### Citadel
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Citadel](sponsors/citadel.md)
+
+### Coinbase
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Coinbase](sponsors/coinbase.md)
+
+### Context Dev
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Context Dev](sponsors/context-dev.md)
+
+### CREAO
+Status: Implemented: actual runtime. <br>
+Function: Saved hospital agent generates structured source-bound patient answers. <br>
+Proof: actual code/run evidence linked below. <br>
+Details: [CREAO](sponsors/creao-ai.md)
+
+### D. E. Shaw
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [D. E. Shaw](sponsors/de-shaw.md)
+
+### Decagon
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Decagon](sponsors/decagon.md)
+
+### Engramme Ai
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Engramme Ai](sponsors/engramme-ai.md)
+
+### Factory
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Factory](sponsors/factory-ai.md)
+
+### Fetch.ai
+Status: Planned / unused in CareSide. <br>
+Function: No CareSide ACP or ASI:One hospital service is deployed. <br>
+Proof: actual code/run evidence linked below. <br>
+Details: [Fetch.ai](sponsors/fetch-ai.md)
+
+### Figma
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Figma](sponsors/figma.md)
+
+### Fung Institute
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Fung Institute](sponsors/fung-institute.md)
+
+### Greptile
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Greptile](sponsors/greptile.md)
+
+### Illumio
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Illumio](sponsors/illumio.md)
+
+### Jane Street
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Jane Street](sponsors/jane-street.md)
+
+### Listen Labs
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Listen Labs](sponsors/listen-labs.md)
+
+### Llama Ventures
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Llama Ventures](sponsors/llama-ventures.md)
+
+### Mana / Mana.space
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Mana / Mana.space](sponsors/mana.md)
+
+### Meta
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Meta](sponsors/meta.md)
+
+### Moonpay
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Moonpay](sponsors/moonpay.md)
+
+### Notability
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Notability](sponsors/notability.md)
+
+### Opal Electronics
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Opal Electronics](sponsors/opal-electronics.md)
+
+### Runpod
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Runpod](sponsors/runpod.md)
+
+### Savvy
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Savvy](sponsors/savvy.md)
+
+### Scale Ai
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Scale Ai](sponsors/scale-ai.md)
+
+### SpaceXAI
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [SpaceXAI](sponsors/spacexai.md)
+
+### Supercell
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Supercell](sponsors/supercell.md)
+
+### The House Fund
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [The House Fund](sponsors/the-house-fund.md)
+
+### Visa
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Visa](sponsors/visa.md)
+
+### Y Combinator
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Y Combinator](sponsors/yc.md)
+
+### Moss
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Moss](sponsors/moss.md)
+
+### Wajo / Fo
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [Wajo / Fo](sponsors/wajo-ai.md)
+
+### CRS Credit API
+Status: Unused in CareSide. <br>
+Function: No sponsor-specific CareSide integration is implemented. <br>
+Proof: none for CareSide; not claimed. <br>
+Details: [CRS Credit API](sponsors/crs-credit-api.md)
