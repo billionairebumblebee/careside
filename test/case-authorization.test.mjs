@@ -14,3 +14,16 @@ test('known source status answers without pending staff question, ETA remains un
 let c=apply(initialCase('two'),'patient','question',{text:'Was my blood test done?'},'known');assert.equal(c.questions[0].status,'answered');assert.deepEqual(c.questions[0].sourceIds,['C2']);
 c=apply(c,'patient','question',{text:'When are results expected?'},'unknown');assert.equal(c.questions.at(-1).status,'pending');
 });
+test('atomic case job reservation rejects concurrent work and preserves one upstream receipt',()=>{
+let c=apply(initialCase('jobs'),'patient','job-reserve',{jobRequestId:'first'},'reserve');
+assert.throws(()=>apply(c,'patient','job-reserve',{jobRequestId:'second'},'second'),/already/);
+c=apply(c,'patient','job',{job:{requestId:'first',runId:'upstream-one',status:'running'}},'started');
+assert.equal(c.jobs.length,1);assert.equal(c.jobs[0].runId,'upstream-one');
+assert.equal(viewCase(c,'staff').activeJob,null);assert.equal(viewCase(c,'patient').activeJob.runId,'upstream-one');
+});
+test('patient narrative remains patient reported until reviewed and never becomes staff evidence',()=>{
+let c=apply(initialCase('narrative'),'patient','patient-report',{text:'I remember the sample being taken before breakfast.'},'report');
+const t=c.timeline.at(-1);assert.equal(t.label,'PatientReported');assert.equal(t.reviewed,false);assert.equal(c.sources.at(-1).kind,'patient');
+c=apply(c,'patient','review',{entryIds:[t.id]},'review');assert.equal(c.timeline.at(-1).label,'PatientReported');assert.equal(c.timeline.at(-1).reviewed,true);
+assert.throws(()=>apply(c,'staff','patient-report',{text:'Changed story'},'wrong'));
+});
