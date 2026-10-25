@@ -12,11 +12,14 @@ export function normalizeReference(html, topic, {provider,retrievedAt}) {
   const dates=[...html.matchAll(/(?:dateModified|datePublished)["']?\s*[:=]\s*["']([^"']+)/gi)].map(m=>m[1]);
   return {id:topic.id,url:topic.url,title:topic.title,publishedAt:null,updatedAt:dates.find(x=>/^\d{4}-\d{2}-\d{2}/.test(x))||null,retrievedAt,text:text.slice(0,24000),provider,sourceLevel:'GeneralReference'};
 }
+const apifyCache=new Map(),apifyPending=new Map();
 export async function collectPublicReference({topicId}, options={}) {
   const topic=REFERENCE_TOPICS[topicId];
   if (!topic) return {sources:[],provider:'none',status:'unknown',reason:'Unsupported public reference topic'};
   const env=options.env||process.env, fetcher=options.fetch||fetch;
+  const useApify=Boolean(env.APIFY_API_TOKEN);
   const useBright=Boolean(env.BRIGHT_DATA_API_TOKEN && env.BRIGHT_DATA_UNLOCKER_ZONE);
+  if(useApify)return collectApifyReference(topic,{env,fetcher});
   const provider=useBright?'bright-data':'direct-public-reference';
   try {
     const response=await fetcher(useBright?'https://api.brightdata.com/request':topic.url,useBright?{
@@ -45,4 +48,16 @@ export function referenceContext(packet) {
     'If chart reason, administration, dose or discharge timing is missing, state unknown and draft a staff question.',
     'Do not diagnose, select a dose, change treatment or infer clinical improvement from photos.'
   ]};
+}
+
+async function collectApifyReference(topic,{env,fetcher}) {
+ const hit=apifyCache.get(topic.id);if(hit&&Date.now()-hit.at<3600000)return {...hit.packet,cached:true};
+ if(apifyPending.has(topic.id))return apifyPending.get(topic.id);
+ const work=(async()=>{try{
+  const headers={Authorization:`Bearer ${env.APIFY_API_TOKEN}`,'Content-Type':'application/json'};
+  const started=await fetcher('https://api.apify.com/v2/acts/apify~website-content-crawler/runs?waitForFinish=20&timeout=45&memory=1024&maxTotalChargeUsd=0.05',{method:'POST',headers,body:JSON.stringify({startUrls:[{url:topic.url}],crawlerType:'cheerio',maxCrawlDepth:0,maxCrawlPages:1,maxResults:1,maxConcurrency:1,saveMarkdown:true,saveHtml:false,removeCookieWarnings:true}),signal:AbortSignal.timeout(25000)});
+  if(!started.ok)throw Error('Actor start failed');const run=(await started.json()).data;if(run?.status!=='SUCCEEDED')return {provider:'Apify',status:'unknown',sources:[],runId:run?.id,reason:'Public reference collection did not finish within the bounded request.'};
+  const data=await fetcher(`https://api.apify.com/v2/datasets/${encodeURIComponent(run.defaultDatasetId)}/items?clean=true&limit=1`,{headers,signal:AbortSignal.timeout(5000)});if(!data.ok)throw Error('Dataset unavailable');const items=await data.json();const item=items[0];if(item?.url!==topic.url)throw Error('Unexpected reference URL');
+  const text=String(item.text||item.markdown||'');const source=normalizeReference(text,topic,{provider:'Apify',retrievedAt:new Date().toISOString()});const packet={provider:'Apify',status:'ready',sources:[source],runId:run.id,runUrl:`https://console.apify.com/actors/runs/${run.id}`,liveRetrieved:true,cached:false};apifyCache.set(topic.id,{at:Date.now(),packet});return packet;
+ }catch{return {provider:'Apify',status:'unknown',sources:[],reason:'Apify public reference unavailable; no source-backed answer is claimed.'};}finally{apifyPending.delete(topic.id);}})();apifyPending.set(topic.id,work);return work;
 }
