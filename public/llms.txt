@@ -1,0 +1,51 @@
+# CareSide
+
+CareSide is a synthetic hospital-companion prototype. Richard helps a patient review their own recollection, understand source-labeled information, organize unresolved staff questions, and share reviewed updates with an explicitly authorized caregiver.
+
+Live: https://careside.vercel.app
+Repository: https://github.com/billionairebumblebee/careside
+Branch: codex/care-side
+Canonical context: /llms.txt (repository root copy is canonical; public copy is identical).
+
+## Implemented flow
+Talk/type -> editable readback -> patient correction -> explicit confirmation -> reviewed PatientReported timeline.
+Known chart collection facts may be answered with source/time. Unknowns enter an exception queue. Authorized patient/caregiver duplicate questions share one item. A synthetic staff answer fans out to authorized viewers. Revocation clears and denies caregiver access.
+
+## Evidence labels
+Confirmed: supported simulated chart or explicit staff source, not clinical validation.
+PatientReported: patient's reviewed recollection, not upgraded to chart truth.
+GeneralEducation: public reference, not a personalized reason for an order.
+Unknown: source support is absent or insufficient.
+An order does not prove administration; pending does not mean normal; missing discharge clearance remains unknown.
+
+## Runtime
+CREAO saved hospital agent 28c98e79-312c-4e5f-ab2b-22bbb9d9b93d performs structured source-bound Q&A. Configured Claude Sonnet 5.5 Medium; no per-response model telemetry or direct Anthropic API proof.
+Completed synthetic run 3fa7084f-d0c8-4187-a0b7-047751ade218:
+https://agent.creao.ai/share/38bfd75de0f779412c97c1726839b9cb
+Separate Convex deployment provides durable case state and role-filtered reactive updates.
+Allowlisted famotidine general reference uses direct MedlinePlus retrieval in verified run 0368f4fa-0ead-43fb-a762-216ac157f4ce. It is not mapped to fictional Example medicine A.
+Bright Data and Elastic adapters are prepared but live CareSide use is unverified. No direct Anthropic credit redemption, live EHR, Fetch medical service, or Visa hospital integration is claimed.
+
+## API boundaries
+POST /api/demo/start creates synthetic case and scoped operator tokens.
+GET /api/case returns bearer-owned role-filtered state.
+POST /api/intake/draft creates private editable recollection; POST /api/intake/confirm saves an idempotent reviewed PatientReported source.
+POST /api/timeline/review records patient review.
+POST /api/questions deduplicates unresolved questions for patient or explicitly permitted caregiver.
+POST /api/staff-update adds synthetic staff facts, distinguishing orders from administrations.
+POST /api/family/authorize, /api/family/share, /api/family/revoke control audience and optional question permission.
+POST /api/chat starts an owned, budgeted request; GET /api/chat/:runId resumes the same request without a new provider start.
+GET /api/status reports configured provider metadata without secrets.
+Convex cases:read enforces current role/token boundaries.
+
+## Safety and limitations
+Synthetic case only; no clinical diagnosis, treatment, autonomous urgent response, discharge clearance, external outreach or production clinical identity assurance. Users should contact care staff for urgent changes.
+Source quotation/category and bounded contradiction checks are not general semantic entailment or clinical correctness guarantees.
+No personal medical records, passwords, API keys or private case links belong in this file or client assets.
+Microphone use requires explicit browser permission; typed fallback is available. Companion feeding/coats are presentation only and do not change medical state.
+No measured patient outcome or reduced staff workload is claimed. Validation metrics are proposals.
+
+## Development and provenance
+npm install; npm test; npm run build. npm start uses server-only ignored environment configuration.
+CareSide-specific implementation and reused Richard assets/infrastructure were built during the event; README describes reuse and Vivian's design/testing/direction role separately from AI code authorship.
+Saved CareSide COO 1962510c-5ad8-461e-9be1-6c151b3eba6f coordinates scoped roles. Saved-role playbook loading is not independent-process execution or repository access. No recurring overnight execution is claimed.

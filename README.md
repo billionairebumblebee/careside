@@ -1,6 +1,33 @@
 # CareSide
 
-A synthetic hospital-companion prototype: Richard helps a patient understand a source-labeled timeline, prepare a staff question, and share a reviewed update with an authorized caregiver.
+A synthetic hospital-companion prototype: talk or type to Richard, correct his readback, confirm your recollection, ask a source-grounded question, and share a reviewed update with an authorized caregiver.
+
+## Why Vivian built CareSide
+
+Vivian Yang arrived at Cal Hacks building Money Meow. An unexpected ER visit after food or drink—with mouth numbness and possible swelling—made waiting, follow-up questions and family communication concrete problems. A doctor considered a mild allergic reaction or a physical stress response; the cause remained uncertain. Her roommate accompanied her, and her mother struggled to get updates about what was happening and when she could leave. That experience prompted the CareSide pivot; it is not a diagnosis or evidence of hospital negligence.
+
+Vivian selected the problem, designed the talk-first patient/caregiver workflow, directed the agent team, tested and revised the UX, set source and consent boundaries, and presents the project. Coding agents substantially authored and integrated implementation code. CREAO supplied actual runtime answers and planning/review/marketing work; we do not claim its agents autonomously edited this repository. No personal medical photos or records are included in this public repository.
+
+## CREAO submission evidence
+
+- Dedicated saved hospital agent: **`28c98e79-312c-4e5f-ab2b-22bbb9d9b93d`**, Hospital Companion — Timeline & Questions.
+- Actual completed API run: **`3fa7084f-d0c8-4187-a0b7-047751ade218`**. [Synthetic run share](https://agent.creao.ai/share/38bfd75de0f779412c97c1726839b9cb) (platform expiry shown as November 24, 2026).
+- Core path: owned synthetic case and source records → saved CREAO agent → structured answers → server quotation/source-category and bounded contradiction checks → patient answer with citations. Removing the agent stops generated source-bound Q&A; deterministic consent, timeline review and queue operations remain available.
+- Configured model: **Claude Sonnet 5.5 Medium** through CREAO. Configuration is verified; the API response did not provide per-run model telemetry. This is not direct Anthropic API or redeemed-credit proof.
+- In Devpost, select the CREAO track and include the saved agent ID and completed run-share link. AI-First Disruptor and One-Person Company are distinct requirements; implementation evidence does not guarantee an award or submission acceptance.
+
+### Saved-role organization and actual coordination
+
+| Role | Saved agent ID | Actual scope |
+|---|---|---|
+| CareSide COO | `1962510c-5ad8-461e-9be1-6c151b3eba6f` | Master acceptance, dependencies and role directives; master thread `030da988-e0dc-4115-bab4-bdd0153ad4fd` |
+| CTO | `f16f21a7-ef79-4bae-aa83-013ca6ad174b` | Architecture, implementation and test directives |
+| UI/UX | `6136a8ac-e2f0-49aa-ae2b-88ff7aa3f008` | Talk-first patient/caregiver experience |
+| Research/runtime | `28c98e79-312c-4e5f-ab2b-22bbb9d9b93d` | Source-bound synthetic care answers |
+| CMO | `817a870c-bc1a-4286-a843-18011f7e59d5` | Concept deck, story and presentation work |
+| QA/Brief Auditor | `145abf55-c3be-48e7-84d1-7f87fe24ddeb` | Evidence and acceptance review |
+
+COO saved-role handoffs resolve role playbooks into the current sandbox; they are not proof of independently executing role processes or repository access. A separate native workflow did execute 20 bounded review tasks with concurrency three: **1 PASS, 0 FAIL, 16 UNKNOWN and 3 deliverables**. UNKNOWN meant missing accessible evidence, not a completed test. No overnight recurring loop is claimed. The One-Person Company entry should disclose these boundaries rather than treat an org chart alone as orchestration proof.
 
 ## Live prototype and verified evidence
 
@@ -8,7 +35,7 @@ Open **https://careside.vercel.app**. This is a separate Vercel project connecte
 
 - Production synthetic-case creation returned HTTP200. Browser checks exercised patient review, authorized caregiver sharing, staff queue/update fanout and revocation.
 - A completed dedicated CREAO hospital-agent run (`3fa7084f-d0c8-4187-a0b7-047751ade218`) returned five answers spanning all four evidence labels. The agent configuration shows **Claude Sonnet 5.5**, used for API runs. This is configuration evidence, not per-response model telemetry or direct Anthropic API proof.
-- A fresh October 25 local run of `npm test` passes 19/19 tests. Independent source checks cover exact quotation provenance and bounded order/administration/discharge contradictions; they do not establish general semantic entailment or clinical validation.
+- The current focused suite contains 24 passing tests. Independent source checks cover exact quotation provenance and bounded order/administration/discharge contradictions; they do not establish general semantic entailment or clinical validation.
 - Working prototype evidence and open limits are consolidated in `.doc-qa/QA-REPORT.md`; deployment evidence is `.doc-qa/deployment-proof.json`.
 
 ## What ran and what did not
@@ -25,7 +52,23 @@ The deployed prototype, one actual configured-Claude run, deterministic source c
 
 `medication-reference.mjs` accepts only an allowlisted topic ID. It never sends patient narrative or chart records to public collection. The first supported topic is general [famotidine information from MedlinePlus](https://medlineplus.gov/druginfo/meds/a687011.html). This reference must not be mapped to the fictional “Example medicine A.”
 
-Actual adapter provider verified in an isolated source test: direct public retrieval. This adapter is not yet called by the app; do not claim it powers current chat answers. The Bright Data adapter is prepared, but a live Bright Data request/credited balance has not yet been verified. Setting server-only `BRIGHT_DATA_API_TOKEN` and `BRIGHT_DATA_UNLOCKER_ZONE` selects the documented [Bright Data Web Unlocker request API](https://docs.brightdata.com/api-reference/rest-api/unlocker/unlock-website). Do not call it used merely because code exists.
+The app-connected public-reference path was exercised in actual CREAO run `0368f4fa-0ead-43fb-a762-216ac157f4ce`: direct MedlinePlus retrieval → distinct general-reference source → generated answer with validated quotations. The provider was **direct-public-reference**, not Bright Data. The Bright Data adapter is prepared, but live Bright Data retrieval and credit redemption remain unverified. Setting server-only `BRIGHT_DATA_API_TOKEN` and `BRIGHT_DATA_UNLOCKER_ZONE` selects the documented [Bright Data Web Unlocker request API](https://docs.brightdata.com/api-reference/rest-api/unlocker/unlock-website).
+
+Convex provides separate durable case state and role-filtered reactive updates. Elastic retrieval is implemented behind server configuration and isolation tests, but no live CareSide Elastic project/query is verified. Fetch/ASI and Visa evidence from Money Meow is not CareSide integration proof. Azure is not used; its absence alone is not a Microsoft-track disqualification under the available mentor clarification. No measured clinical benefit is claimed.
+
+## Working demonstration
+
+1. Start a clearly labeled synthetic case. Type a recollection or explicitly enable microphone dictation where supported.
+2. Review Richard's editable readback, correct it, and confirm. Only confirmation creates a reviewed **PatientReported** timeline entry.
+3. Ask about a documented collection: source/time-grounded facts can answer it. Missing ETA or rationale remains unknown and can enter the staff exception queue.
+4. Authorize a caregiver, separately opting into question access. Patient and caregiver versions of the same unresolved question share one queue item.
+5. A synthetic staff operator answers once; the authorized caregiver receives the confirmed source update through Convex. Revoke access to clear and deny the caregiver view.
+
+Four evidence labels remain distinct: **Confirmed**, **PatientReported**, **GeneralEducation**, **Unknown**. Ordered medicine is not documented administration. A pending result is not normal. The demo does not clear discharge, diagnose, prescribe, contact staff automatically, or connect to a live EHR.
+
+## Machine-readable project context
+
+[`llms.txt`](llms.txt) is canonical; [`public/llms.txt`](public/llms.txt) is its identical served copy at https://careside.vercel.app/llms.txt. It contains project context and route boundaries, not credentials or private case links.
 
 Every retrieved source carries URL, retrieval time and source level. Unknown publication dates remain null. Quotation validation verifies an exact passage against retrieved content; it does not prove clinical correctness, personalized applicability, or elimination of hallucinations. Retrieval failures return unknown rather than a fabricated reference.
 
