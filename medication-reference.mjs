@@ -1,3 +1,4 @@
+import {collectBrightReference} from './bright-reference.mjs';
 // Only public, fixed reference topics leave this module. No patient text is accepted.
 export const REFERENCE_TOPICS = Object.freeze({
   famotidine: {id:'medlineplus-famotidine',url:'https://medlineplus.gov/druginfo/meds/a687011.html',title:'Famotidine — MedlinePlus Drug Information'}
@@ -19,7 +20,8 @@ export async function collectPublicReference({topicId}, options={}) {
   const env=options.env||process.env, fetcher=options.fetch||fetch;
   const useApify=Boolean(env.APIFY_API_TOKEN);
   const useBright=Boolean(env.BRIGHT_DATA_API_TOKEN && env.BRIGHT_DATA_UNLOCKER_ZONE);
-  if(useApify)return collectApifyReference(topic,{env,fetcher});
+  if(useApify){const primary=await collectApifyReference(topic,{env,fetcher});if(primary.status==='ready'||!useBright)return primary;return collectBrightReference(topic,{env,fetcher,normalizeReference});}
+  if(useBright)return collectBrightReference(topic,{env,fetcher,normalizeReference});
   const provider=useBright?'bright-data':'direct-public-reference';
   try {
     const response=await fetcher(useBright?'https://api.brightdata.com/request':topic.url,useBright?{
