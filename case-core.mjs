@@ -20,6 +20,7 @@ export function mutateCase(original,role,action,payload,{id,time}={}){
  }else if(action==='family-share'){if(!c.family.authorized)fail('Authorize a named family audience before sharing.');if(payload.text!==c.family.draft)fail('Review the current source-backed family draft before sharing.',409);c.family.sharedText=payload.text;
  }else if(action==='job-status'){const j=c.jobs.find(j=>payload.runId?j.runId===payload.runId:j.requestId===payload.jobRequestId);if(j){j.status=payload.status;j.error=payload.error||null;if(payload.answer)j.answer=payload.answer;}
  }else if(action==='ai-result'){const r=payload.result;if(!r||!Array.isArray(r.answers))fail('Invalid source-grounded response.',400);c.messages.push({id,role:'assistant',time,text:r.summary||'',result:r});
+ }else if(action==='reference-add'){const s=payload.source;if(!s||s.kind!=='reference'||!/^REF-[a-z0-9-]+$/i.test(s.id)||!s.url?.startsWith('https://medlineplus.gov/'))fail('Invalid allowlisted general reference.',400);if(c.sources.some(x=>x.id===s.id))return c;c.sources.push(s);
  }else if(action==='job-reserve'){if(c.jobs.some(j=>['starting','pending','running','queued'].includes(j.status)))fail('An answer is already being prepared.',409);if(c.jobs.length>=20)fail('This synthetic case reached its demonstration budget.',429);c.jobs.push({requestId:payload.jobRequestId,status:'starting',createdAt:time});
  }else if(action==='job'){const j=c.jobs.find(j=>j.requestId===payload.job.requestId);if(j)Object.assign(j,payload.job);else c.jobs.push(payload.job);
  }else fail('Unknown case action.',400);
