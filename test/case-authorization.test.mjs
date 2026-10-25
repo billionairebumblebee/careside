@@ -8,6 +8,7 @@ assert.equal(c.questions.length,1);assert.equal(c.questions[0].originals.length,
 c=apply(c,'staff','staff-update',{questionId:'q1',text:'The simulated team has no confirmed result time.'},'s1');
 assert.equal(viewCase(c,'family').questions[0].answer,c.questions[0].answer);assert.equal(viewCase(c,'family').questions[0].originals,undefined);
 const again=apply(c,'staff','staff-update',{questionId:'q1',text:c.questions[0].answer},'s2');assert.equal(again.sources.length,c.sources.length);
+c=apply(c,'family','question',{text:'When will results come?'},'repeat');assert.equal(c.questions.length,1);assert.equal(c.questions[0].status,'answered');
 c=apply(c,'patient','family-revoke',{},'revoke');assert.throws(()=>viewCase(c,'family'));assert.throws(()=>apply(c,'family','question',{text:'When results?'},'q3'));
 });
 test('known source status answers without pending staff question, ETA remains unresolved',()=>{
